@@ -17,7 +17,7 @@ class CategoryController extends Controller
        $category = Category::find($id);
 
         if (!$category) {
-            abort(404); // или можно вернуть другую реакцию, если категория не найдена
+            abort(404); 
         }
 
         return view('category', ['category' => $category]);
