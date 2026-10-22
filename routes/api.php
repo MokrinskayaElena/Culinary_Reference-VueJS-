@@ -3,15 +3,17 @@ use App\Http\Controllers\DishControllerApi;
 use App\Http\Controllers\CategoryControllerApi;
 use App\Http\Controllers\AuthController;
 
-// ПУБЛИЧНЫЕ МАРШРУТЫ (ДОСТУПНЫ ВСЕМ)
+// ПУБЛИЧНЫЕ МАРШРУТЫ
 // Аутентификация
 Route::post('/login', [AuthController::class, 'login']);
 
 // Просмотр категорий 
+Route::get('/categories_total', [CategoryControllerApi::class, 'total']);
 Route::get('/categories', [CategoryControllerApi::class, 'index']);
 Route::get('/categories/{id}', [CategoryControllerApi::class, 'show']);
 
 // Просмотр блюд 
+Route::get('/dishes_total', [DishControllerApi::class, 'total']);
 Route::get('/dishes', [DishControllerApi::class, 'index']);
 Route::get('/dishes/{id}', [DishControllerApi::class, 'show']);
 Route::get('/dishes/{id}/ingredients', [DishControllerApi::class, 'showIngredients']);

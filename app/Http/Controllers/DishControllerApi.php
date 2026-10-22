@@ -9,18 +9,28 @@ use Illuminate\Support\Facades\Gate;
 
 class DishControllerApi extends Controller
 {
-    public function index()
-    {
-        $dishes = Dish::with('category')->get();
-        return response()->json($dishes);
-    }
-    // public function index(Request $request)
+    // public function index()
     // {
-    //     $perPage = $request->get('perpage', 5);
-    //     $dishes = Dish::with('category')->paginate($perPage);
+    //     $dishes = Dish::with('category')->get();
     //     return response()->json($dishes);
     // }
-    
+
+    public function index(Request $request)
+    {
+
+        return response(
+            Dish::with('category')
+                ->limit($request->perpage ?? 5)
+                ->offset(($request->perpage ?? 5) * ($request->page ?? 0))
+                ->get()
+        );
+    }
+
+    public function total()
+    {
+        return response(Dish::all()->count());
+    }
+
     public function showIngredients($id)
     {
         $dish = Dish::with('ingredients')->findOrFail($id);
